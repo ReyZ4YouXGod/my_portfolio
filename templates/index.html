@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name }} | 19yo Senior Dev</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { --neon: #00ffcc; --bg: #050505; --card: #0f172a; }
+        body { background-color: var(--bg); color: #fff; font-family: 'Space Grotesk', sans-serif; scroll-behavior: smooth; }
+        #matrix { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.1; }
+        .mono { font-family: 'Fira Code', monospace; color: var(--neon); }
+        
+        /* Hero & Terminal */
+        .hero { min-height: 100vh; display: flex; align-items: center; padding: 60px 0; }
+        .terminal-window { background: #0a111e; border-radius: 12px; border: 1px solid rgba(0, 255, 204, 0.3); overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.7); }
+        .terminal-header { background: #1e293b; padding: 10px 15px; display: flex; gap: 8px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .terminal-body { padding: 30px; font-family: 'Fira Code', monospace; }
+
+        /* Progress Bar */
+        .progress-container { background: rgba(255,255,255,0.05); border-radius: 10px; height: 8px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .progress-fill { height: 100%; background: var(--neon); box-shadow: 0 0 15px var(--neon); border-radius: 10px; }
+
+        /* Stats Section */
+        .stats-section { padding: 100px 0; background: linear-gradient(to bottom, transparent, #0a0a0a); }
+        .stat-card { background: var(--card); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); text-align: center; transition: 0.3; position: relative; overflow: hidden;}
+        .stat-card:hover { border-color: var(--neon); transform: translateY(-10px); }
+        .stat-number { font-size: 4.5rem; font-weight: 700; color: var(--neon); text-shadow: 0 0 20px rgba(0,255,204,0.4); }
+
+        /* Teks Pengenal Ala Programmer */
+        .comment-text { color: #6a9955; font-style: italic; font-size: 0.9rem; margin-bottom: 5px; display: block; }
+        .code-keyword { color: #c586c0; }
+        .code-func { color: #dcdcaa; }
+
+        /* Social Buttons */
+        .social-btn { 
+            width: 45px; height: 45px; background: rgba(255,255,255,0.05); 
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; 
+            color: #fff; display: flex; align-items: center; justify-content: center; 
+            transition: 0.3s; text-decoration: none;
+        }
+        .social-btn:hover { background: var(--neon); color: #000; box-shadow: 0 0 15px var(--neon); transform: translateY(-3px); }
+
+        .logs-box { background: #000; border-left: 3px solid var(--neon); padding: 20px; margin-top: 50px; font-size: 0.85rem; color: #8892b0; }
+        .blink { animation: blinker 1s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrix"></canvas>
+
+    <div class="container hero">
+        <div class="row w-100 align-items-center">
+            <div class="col-lg-4 text-center mb-5 mb-lg-0">
+                <img src="https://h.top4top.io/p_36895xotu5.png" class="profile-img shadow-lg mb-4" style="width: 230px; height: 230px; object-fit: cover;">
+                
+                <div class="d-flex justify-content-center gap-2">
+                    <a href="https://wa.me/{{ whatsapp }}" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://instagram.com/{{ instagram }}" class="social-btn"><i class="fab fa-instagram"></i></a>
+                    <a href="https://t.me/{{ telegram }}" class="social-btn"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="https://github.com/{{ github }}" class="social-btn"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="dot" style="background:#ff5f56"></div>
+                        <div class="dot" style="background:#ffbd2e"></div>
+                        <div class="dot" style="background:#27c93f"></div>
+                        <span class="ms-2 small mono" style="font-size:0.7rem; opacity:0.5">user@dev-machine: ~/about_me</span>
+                    </div>
+                    <div class="terminal-body">
+                        <span class="comment-text">// level 19 programmer profile</span>
+                        <h1 class="display-5 fw-bold mb-0">{{ name }}</h1>
+                        <p class="mono text-secondary mb-4"><span class="code-keyword">const</span> role = <span style="color: #ce9178;">"{{ role }}"</span>;</p>
+                        
+                        <p class="text-white small mb-4 opacity-75" style="line-height: 1.6;">{{ bio }}</p>
+
+                        <div style="border-top:1px dashed #333; margin:20px 0"></div>
+
+                        <p class="mb-3 mono small"><span class="code-func">fetchSkills</span>();</p>
+                        <div class="mb-2 d-flex justify-content-between mono small"><span>HTML</span><span>90%</span></div>
+                        <div class="progress-container"><div class="progress-fill" style="width: 90%"></div></div>
+                        
+                        <div class="mb-2 d-flex justify-content-between mono small"><span>CSS</span><span>80%</span></div>
+                        <div class="progress-container"><div class="progress-fill" style="width: 80%"></div></div>
+                        
+                        <div class="mb-2 d-flex justify-content-between mono small"><span>PYTHON</span><span>70%</span></div>
+                        <div class="progress-container"><div class="progress-fill" style="width: 70%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 mb-4">
+                    <div class="stat-card h-100 text-start">
+                        <span class="comment-text">/* identify total production */</span>
+                        <p class="mono mb-1"><span class="code-keyword">if</span> (projects.length > <span style="color:#b5cea8">60</span>) {</p>
+                        <div class="stat-number my-2">65+</div>
+                        <p class="mono mb-0 ms-3"> <span class="code-func">console.log</span>(<span style="color:#ce9178">"Experienced_Dev"</span>);</p>
+                        <p class="mono">}</p>
+                        
+                        <div class="mt-4 p-3" style="background: rgba(0,0,0,0.3); border-radius: 10px;">
+                            <span class="comment-text">// deskripsi pengenal</span>
+                            <p class="small text-secondary mb-0">
+                                Berhasil mendeploy lebih dari 65+ proyek mulai dari script otomasi Python, web dinamis, hingga bot asisten. Semua kode dioptimasi untuk kecepatan dan skalabilitas.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5 mb-4">
+                    <div class="stat-card h-100">
+                        <span class="comment-text">// contribution_graph</span>
+                        <div class="stat-number" style="font-size: 3rem;">1.2K</div>
+                        <p class="mono text-secondary">TOTAL_COMMITS</p>
+                        <hr style="border-color: rgba(255,255,255,0.1)">
+                        <div class="d-flex justify-content-around mt-3">
+                            <div class="text-center"><div class="mono text-success">Active</div><small class="text-secondary">Status</small></div>
+                            <div class="text-center"><div class="mono text-success">Fast</div><small class="text-secondary">Deploy</small></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="logs-box mono">
+                <div class="log-entry"><span>[SYS]</span> Scanning local repositories...</div>
+                <div class="log-entry"><span>[SYS]</span> Found 65 verified projects.</div>
+                <div class="log-entry"><span>[SYS]</span> Developer age: 19 verified.</div>
+                <div class="log-entry"><span>[SYS]</span> System Status: <span class="blink" style="color:var(--neon)">READY_TO_CODE</span></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-5">
+        <div class="d-flex justify-content-center gap-3 mb-3">
+            <a href="https://wa.me/{{ whatsapp }}" class="text-secondary text-decoration-none small">WhatsApp</a>
+            <a href="https://github.com/{{ github }}" class="text-secondary text-decoration-none small">GitHub</a>
+        </div>
+        <p class="mono text-secondary" style="font-size:0.7rem">2026 &copy; {{ name }}. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        const letters = "01"; const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#00ffcc"; ctx.font = fontSize + "px monospace";
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 33);
+    </script>
+</body>
+</html>
